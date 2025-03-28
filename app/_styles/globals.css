@@ -54,9 +54,29 @@
 }
 
 /* For data picker */
-.rdp {
+.rdp-root {
   --rdp-cell-size: 32px !important;
   --rdp-accent-color: theme("colors.accent.500") !important;
   --rdp-background-color: theme("colors.accent.600") !important;
   margin: 0 !important;
+}
+
+.rdp-range_start,
+.rdp-range_middle,
+.rdp-range_end {
+  background: theme("colors.accent.900") !important;
+}
+
+.rdp-range_start {
+  border-top-left-radius: calc(var(--rdp-day_button-border-radius) / 2);
+  border-bottom-left-radius: calc(var(--rdp-day_button-border-radius) / 2);
+}
+
+.rdp-range_end {
+  border-top-right-radius: calc(var(--rdp-day_button-border-radius) / 2);
+  border-bottom-right-radius: calc(var(--rdp-day_button-border-radius) / 2);
+}
+
+.rdp-dropdown {
+  color: theme("colors.accent-600");
 }
