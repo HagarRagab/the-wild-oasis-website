@@ -35,7 +35,7 @@ export default async function Navigation() {
                 alt={session.user.name}
                 referrerPolicy="no-referrer"
               />
-              <span>Guest area</span>
+              <span className="hidden md:inline-block">Guest area</span>
             </Link>
           ) : (
             <Link

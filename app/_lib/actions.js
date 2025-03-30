@@ -4,7 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { auth, signIn, signOut } from "@/app/_lib/auth";
-import { updateGuest } from "@/app/_lib/data-service";
+import {
+  deleteBooking,
+  getBookings,
+  updateGuest,
+} from "@/app/_lib/data-service";
 
 export async function updateProfile(formData) {
   const session = await auth();
@@ -26,6 +30,25 @@ export async function updateProfile(formData) {
 
   revalidatePath("/account/profile");
   redirect("/account");
+}
+
+export async function deleteReservationAction(bookingId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+  const currentBooking = guestBookings.find(
+    (booking) => booking.id === bookingId,
+  );
+  if (
+    !guestBookingsIds.includes(bookingId) ||
+    currentBooking.status === "checked out"
+  )
+    throw new Error("You are not allowed to delete this reservation");
+
+  await deleteBooking(bookingId);
+  revalidatePath("/account/reservations");
 }
 
 export async function signInAction() {

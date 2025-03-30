@@ -9,7 +9,7 @@ function UpdateProfileForm({ children, guest }) {
 
   return (
     <form
-      className="bg-primary-900 flex flex-col gap-6 px-12 py-8 text-lg"
+      className="bg-primary-900 flex flex-col gap-6 px-4 py-8 text-lg md:px-12"
       action={updateProfile}
     >
       <div className="space-y-2">
@@ -58,7 +58,7 @@ function UpdateProfileForm({ children, guest }) {
         />
       </div>
 
-      <div className="flex items-center justify-end gap-6">
+      <div className="flex items-center justify-center gap-6 md:justify-end">
         <Submit />
       </div>
     </form>

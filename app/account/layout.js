@@ -2,9 +2,9 @@ import SideNavigation from "@/app/_components/SideNavigation";
 
 export default function Layout({ children }) {
   return (
-    <div className="grid min-h-screen grid-cols-[16rem_1fr] gap-12">
+    <div className="grid h-full grid-cols-[auto_1fr] gap-4 md:grid-cols-[16rem_1fr] md:gap-12">
       <SideNavigation />
-      <div className="py-12">{children}</div>
+      <div className="md:py-12">{children}</div>
     </div>
   );
 }

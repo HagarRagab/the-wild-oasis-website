@@ -22,11 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{ filter: "none" }}>
       <body
-        className={`${josefin.className} bg-primary-950 text-primary-100 relative flex min-h-screen flex-col antialiased`}
+        className={`${josefin.className} bg-primary-950 text-primary-100 relative grid min-h-screen grid-cols-1 grid-rows-[auto_1fr] antialiased`}
       >
         <Header />
-        <div className="flex-1 px-8 py-12">
-          <main className="mx-auto max-w-7xl">
+        <div className="px-2 py-12 sm:px-4 md:px-8">
+          <main className="mx-auto h-full max-w-7xl">
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
