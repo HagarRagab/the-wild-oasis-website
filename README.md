@@ -8,7 +8,7 @@
 - [Technical Highlights](#technical-highlights)
 - [Getting Started](#getting-started)
 
-**Live demo** [click here]()
+**Live demo** [click here](https://the-wild-oasis-official.vercel.app/)
 
 ![alt text](website_imgs/overview.jpg)
 
