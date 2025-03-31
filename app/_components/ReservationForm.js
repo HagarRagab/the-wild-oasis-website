@@ -1,10 +1,30 @@
 "use client";
 
+import { differenceInDays } from "date-fns";
 import { useReservation } from "./ReservationContext";
+import SubmitButton from "./SubmitButton";
+import { createReservationAction } from "../_lib/actions";
 
-function ReservationForm({ guestsNum, user }) {
-  const { range } = useReservation();
-  const maxCapacity = guestsNum;
+function ReservationForm({ cabin, user }) {
+  const { range, resetRange } = useReservation();
+  const { id, regularPrice, discount, maxCapacity } = cabin;
+  const startDate = range.from;
+  const endDate = range.to;
+  const numNights = Number(differenceInDays(endDate, startDate));
+  const cabinPrice = numNights * (regularPrice - discount);
+
+  const reservationData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinId: id,
+  };
+
+  const createReservationWithData = createReservationAction.bind(
+    null,
+    reservationData,
+  );
 
   return (
     <div className="flex h-full flex-col">
@@ -13,8 +33,7 @@ function ReservationForm({ guestsNum, user }) {
 
         <div className="flex items-center gap-4">
           <img
-            // Important to display google profile images
-            referrerPolicy="no-referrer"
+            referrerPolicy="no-referrer" // Important to display google profile images
             className="h-8 rounded-full"
             src={user.image}
             alt={user.name}
@@ -23,7 +42,13 @@ function ReservationForm({ guestsNum, user }) {
         </div>
       </div>
 
-      <form className="bg-primary-900 flex flex-1 flex-col justify-center gap-5 px-8 py-10 text-lg md:px-16">
+      <form
+        action={(formData) => {
+          createReservationWithData(formData);
+          resetRange();
+        }}
+        className="bg-primary-900 flex flex-1 flex-col justify-center gap-5 px-8 py-10 text-lg md:px-16"
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
@@ -55,12 +80,24 @@ function ReservationForm({ guestsNum, user }) {
           />
         </div>
 
-        <div className="flex items-center justify-end gap-6">
-          <p className="text-primary-300 text-base">Start by selecting dates</p>
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            className="accent-accent-500 h-4 w-4 rounded-xs"
+            id="hasBreakfast"
+            name="hasBreakfast"
+          />
+          <label htmlFor="hasBreakfast">Add breakfast</label>
+        </div>
 
-          <button className="bg-accent-500 text-primary-800 hover:bg-accent-600 px-8 py-4 font-semibold transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Reserve now
-          </button>
+        <div className="flex items-center justify-end gap-6">
+          {!startDate || !endDate ? (
+            <p className="text-primary-300 text-base">
+              Start by selecting dates
+            </p>
+          ) : (
+            <SubmitButton>Reserve now</SubmitButton>
+          )}
         </div>
       </form>
     </div>
