@@ -10,7 +10,7 @@
 
 **Live demo** [click here](https://the-wild-oasis-official.vercel.app/)
 
-![alt text](website_imgs/overview.jpg)
+![alt text](./website_imgs/overview.jpg)
 
 ---
 
